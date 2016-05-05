@@ -1,15 +1,16 @@
 #include <opencv2/core/core.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
 
 using namespace cv;
 using namespace std;
 
-struct infoImage
+/*struct infoImage
         {
             uchar4*         rgba;  
             unsigned char*  gray;    
-        };
+        };*/
 
 
 void ImageRGBToGray(int rows, int cols){
@@ -23,7 +24,7 @@ void ImageRGBToGray(int rows, int cols){
 int main( int argc, char** argv )
 {
     unsigned char* gray;
-    uchar4* rgba;
+    //uchar4* rgba;
     int width, height, gray_width, gray_height;
     
     //infoImage image_h;
@@ -55,10 +56,10 @@ int main( int argc, char** argv )
 
     image_gray.create(height,width,CV_8UC1);
 
-    gray_width = (unsigned char*)malloc(image_gray.cols);
-    gray_height = (unsigned char*)malloc(image_gray.rows);    
+    //gray_width = (unsigned char*)malloc(image_gray.cols);
+    //gray_height = (unsigned char*)malloc(image_gray.rows);    
 
-    cvtColor(image, gray_image_opencv, CV_BGR2GRAY);
+    cvtColor(image, image_gray_opencv, CV_BGR2GRAY);
 
     //rgba = reinterpret_cast<uchar4*>(gray_image_opencv.ptr<unsigned char>(0));
     //gray = image_gray.ptr<unsigned char>(0);    
@@ -71,8 +72,8 @@ int main( int argc, char** argv )
 
     unsigned char* n_image = new unsigned char[tam];  
     
-    for(int r=0; r<gray_height; r++){
-        for(int c=0; c<gray_width; c++){ 
+    for(int r=0; r<image_gray.rows; r++){
+        for(int c=0; c<image_gray.cols; c++){ 
             int indice=c*gray_width+r;
             float grays = 0.299*gray[indice] + 0.587*gray[indice] + 0.114*gray[indice];
             n_image[indice] = grays;
@@ -86,13 +87,13 @@ int main( int argc, char** argv )
     namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
     imshow( "Display window", image );                   // Show our image inside it.
 
-    imshow(imageName,image);
+    //imshow(imageName,image);
     imshow("Gray Image CUDA", image_gray);
-    imshow("Gray Image OpenCV",gray_image_opencv);
+    imshow("Gray Image OpenCV",image_gray_opencv);
 
     waitKey(0);                                          // Wait for a keystroke in the window
-    free(gray_width);
-    free(gray_height);
+    //free(gray_width);
+    //free(gray_height);
     free(gray);
     return 0;
 }

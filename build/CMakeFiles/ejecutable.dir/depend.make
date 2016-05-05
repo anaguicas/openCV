@@ -10,4 +10,6 @@ CMakeFiles/ejecutable.dir/mostrarimagen.cc.o: /usr/local/include/opencv2/core/ty
 CMakeFiles/ejecutable.dir/mostrarimagen.cc.o: /usr/local/include/opencv2/core/version.hpp
 CMakeFiles/ejecutable.dir/mostrarimagen.cc.o: /usr/local/include/opencv2/highgui/highgui.hpp
 CMakeFiles/ejecutable.dir/mostrarimagen.cc.o: /usr/local/include/opencv2/highgui/highgui_c.h
+CMakeFiles/ejecutable.dir/mostrarimagen.cc.o: /usr/local/include/opencv2/imgproc/imgproc.hpp
+CMakeFiles/ejecutable.dir/mostrarimagen.cc.o: /usr/local/include/opencv2/imgproc/types_c.h
 
