@@ -12,7 +12,7 @@ using namespace std;
 
 int main( int argc, char** argv )
 {
-    unsigned char* gray;
+    unsigned char *gray, *image_aux;
     //uchar4* rgba;
     int width, height, gray_width, gray_height;
     
@@ -40,21 +40,20 @@ int main( int argc, char** argv )
     Size s = image.size();
     width = s.width;
     height = s.height;
-    int size = sizeof(unsigned char)*width*height*image.channels();
-    int sizeGray = sizeof(unsigned char*)*width*height;
+    int tama = sizeof(unsigned char)*width*height;
+    gray = (unsigned char*)malloc(tama);
 
-    gray = (unsigned char*)malloc(size);
-    gray=image.data;
 
     for(int i=0; i<height; i++){
 	for(int j=0; j<width; j++){
-		gray[(i*width+j)*3+BLUE]=0;
+		gray[(i*width+j)]= 0.299*image.data[(i*width+j)*3+2] + 0.587*image.data[(i*width+j)*3+1] + 0.114*image.data[(i*width+j)*3];
 	}    
     }
 
     image_gray.create(height,width,CV_8UC1);
     image_gray.data=gray;
 
+    cvtColor(image,image_gray_opencv, CV_BGR2GRAY);
 
     imwrite("./Gray_Image.jpg",image_gray);
 
