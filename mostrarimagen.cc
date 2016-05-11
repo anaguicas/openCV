@@ -15,7 +15,15 @@ int main( int argc, char** argv )
     unsigned char *gray, *image_aux;
     //uchar4* rgba;
     int width, height, gray_width, gray_height;
+    Mat src, src_gray;
+    Mat grad;
     
+    int scale = 1;
+  int delta = 0;
+  int ddepth = CV_16S;
+
+  int c;
+  
     //infoImage image_h;
 
     if( argc != 2)
@@ -52,11 +60,31 @@ int main( int argc, char** argv )
 
     image_gray.create(height,width,CV_8UC1);
     image_gray.data=gray;
+    
+    GaussianBlur( image, image, Size(3,3), 0, 0, BORDER_DEFAULT );
 
     cvtColor(image,image_gray_opencv, CV_BGR2GRAY);
 
     imwrite("./Gray_Image.jpg",image_gray);
+    
+    Mat grad_x, grad_y;
+    Mat abs_grad_x, abs_grad_y;
+    
+    /// Gradient X
+  //Scharr( src_gray, grad_x, ddepth, 1, 0, scale, delta, BORDER_DEFAULT );
+  Sobel( image_gray_opencv, grad_x, ddepth, 1, 0, 3, scale, delta, BORDER_DEFAULT );
+  convertScaleAbs( grad_x, abs_grad_x );
 
+  /// Gradient Y
+  //Scharr( src_gray, grad_y, ddepth, 0, 1, scale, delta, BORDER_DEFAULT );
+  Sobel( image_gray_opencv, grad_y, ddepth, 0, 1, 3, scale, delta, BORDER_DEFAULT );
+  convertScaleAbs( grad_y, abs_grad_y );
+
+  /// Total Gradient (approximate)
+  addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad );
+  
+  imshow( window_name, grad );
+    
     namedWindow( "Display window", WINDOW_AUTOSIZE );// Create a window for display.
     imshow( "Display window", image);                   // Show our image inside it.
 
