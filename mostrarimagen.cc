@@ -2,7 +2,7 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
-#include <cuda.h>
+//#include <cuda.h>
 #include <cv.h>
 
 using namespace cv;
