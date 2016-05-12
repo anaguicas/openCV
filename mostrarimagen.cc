@@ -2,6 +2,8 @@
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <iostream>
+#include <cuda.h>
+#include <cv.h>
 
 using namespace cv;
 using namespace std;
@@ -10,9 +12,20 @@ using namespace std;
 #define GREEN 1
 #define BLUE 0
 
+__gloabl__ void grayImage(unsigned char *d_dataRawImage,int width, int height, unsigned char *d_imageOutput){
+	int col=blockIdx.x*blockDim.x + threadIdx.x;
+	int row=blockIdx.y*blockDim.y + threadIdx.y;
+	
+	if((row < height) && (col < width)){
+        d_imageOutput[row*width+col] = imageInput[(row*width+col)*3+RED]*0.299 + imageInput[(row*width+col)*3+GREEN]*0.587 \
+                                     + imageInput[(row*width+col)*3+BLUE]*0.114;
+    }
+}
+
 int main( int argc, char** argv )
 {
     unsigned char *gray, *image_aux;
+    unsigned char *d_dataRawImage, *d_imageOutput, *h_imageOutput;
     //uchar4* rgba;
     int width, height, gray_width, gray_height;
     Mat src, src_gray;
@@ -57,7 +70,32 @@ int main( int argc, char** argv )
 		gray[(i*width+j)]= 0.299*image.data[(i*width+j)*3+2] + 0.587*image.data[(i*width+j)*3+1] + 0.114*image.data[(i*width+j)*3];
 	}    
     }
-
+    
+    error = cudaMalloc((void**)&d_dataRawImage,size);
+    if(error != cudaSuccess){
+        printf("Error reservando memoria para d_dataRawImage\n");
+        exit(-1);
+    }
+    
+    error = cudaMalloc((void**)&d_imageOutput,sizeGray);
+    if(error != cudaSuccess){
+        printf("Error reservando memoria para d_imageOutput\n");
+        exit(-1);
+    }
+    
+    error = cudaMemcpy(d_dataRawImage,gray,size, cudaMemcpyHostToDevice);
+    if(error != cudaSuccess){
+        printf("Error copiando los datos de dataRawImage a d_dataRawImage \n");
+        exit(-1);
+    }
+    
+    int blockSize = 32;
+    dim3 dimBlock(blockSize,blockSize,1);
+    dim3 dimGrid(ceil(width/float(blockSize)),ceil(height/float(blockSize)),1);
+    grayImage<<<dimGrid,dimBlock>>>(d_dataRawImage,width,height,d_imageOutput);
+    cudaDeviceSynchronize();
+    cudaMemcpy(h_imageOutput,d_imageOutput,sizeGray,cudaMemcpyDeviceToHost);
+    
     image_gray.create(height,width,CV_8UC1);
     image_gray.data=gray;
     
@@ -90,6 +128,8 @@ int main( int argc, char** argv )
 
     imshow("Gray Image CUDA", image_gray);
     imshow("Gray Image OpenCV",image_gray_opencv);
+    
+    imshow("Gray Image CUDA parallel",h_imageOutput)
 
     waitKey(0);                                          // Wait for a keystroke in the window
     //free(gray_width);
