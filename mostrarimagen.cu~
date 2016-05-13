@@ -2,9 +2,11 @@
 #include <cuda.h>
 #include <cv.h>
 #include <time.h>
-#include<math.h>
+#include <math.h>
+#include <iostream>
 
 using namespace cv;
+using namespace std;
 
 #define RED 2
 #define GREEN 1
@@ -40,7 +42,7 @@ int main( int argc, char** argv )
 
     if( argc != 2)
     {
-     cout <<" Usage: display_image ImageToLoadAndDisplay" << endl;
+     cout <<" Usage: display_image ImageToLoadAndDisplay" << std::endl;
      return -1;
     }
 
@@ -52,7 +54,7 @@ int main( int argc, char** argv )
 
     if(! image.data )                              // Check for invalid input
     {
-        cout <<  "Could not open or find the image" << std::endl ;
+        cout <<  "Could not open or find the image" << endl ;
         return -1;
     }
 
@@ -75,12 +77,13 @@ int main( int argc, char** argv )
     //cudaDeviceSynchronize();
     cudaMemcpy(h_imageOutput,d_imageOutput,tama,cudaMemcpyDeviceToHost);
     
+/*
     for(int i=0; i<height; i++){
 	for(int j=0; j<width; j++){
 		gray[(i*width+j)]= 0.299*image.data[(i*width+j)*3+2] + 0.587*image.data[(i*width+j)*3+1] + 0.114*image.data[(i*width +j)*3];
 	}    
     }
-
+*/
     image_gray.create(height,width,CV_8UC1);
     image_gray.data=gray;
     

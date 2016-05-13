@@ -11,6 +11,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.3.2/CMakeCCompiler.cmake"
   "CMakeFiles/3.3.2/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.3.2/CMakeSystem.cmake"
+  "CMakeFiles/ejecutable.dir/ejecutable_generated_mostrarimagen.cu.o.depend"
   "/usr/local/share/OpenCV/OpenCVConfig-version.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig.cmake"
   "/usr/local/share/OpenCV/OpenCVModules-release.cmake"
@@ -29,6 +30,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/local/share/cmake-3.3/Modules/Compiler/GNU-CXX.cmake"
   "/usr/local/share/cmake-3.3/Modules/Compiler/GNU.cmake"
   "/usr/local/share/cmake-3.3/Modules/FindCUDA.cmake"
+  "/usr/local/share/cmake-3.3/Modules/FindCUDA/run_nvcc.cmake"
   "/usr/local/share/cmake-3.3/Modules/FindPackageHandleStandardArgs.cmake"
   "/usr/local/share/cmake-3.3/Modules/FindPackageMessage.cmake"
   "/usr/local/share/cmake-3.3/Modules/FindThreads.cmake"
@@ -47,6 +49,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
+  "CMakeFiles/ejecutable.dir/ejecutable_generated_mostrarimagen.cu.o.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 

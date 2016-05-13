@@ -123,33 +123,6 @@ ejecutable/fast:
 	$(MAKE) -f CMakeFiles/ejecutable.dir/build.make CMakeFiles/ejecutable.dir/build
 .PHONY : ejecutable/fast
 
-mostrarimagen.o: mostrarimagen.cc.o
-
-.PHONY : mostrarimagen.o
-
-# target to build an object file
-mostrarimagen.cc.o:
-	$(MAKE) -f CMakeFiles/ejecutable.dir/build.make CMakeFiles/ejecutable.dir/mostrarimagen.cc.o
-.PHONY : mostrarimagen.cc.o
-
-mostrarimagen.i: mostrarimagen.cc.i
-
-.PHONY : mostrarimagen.i
-
-# target to preprocess a source file
-mostrarimagen.cc.i:
-	$(MAKE) -f CMakeFiles/ejecutable.dir/build.make CMakeFiles/ejecutable.dir/mostrarimagen.cc.i
-.PHONY : mostrarimagen.cc.i
-
-mostrarimagen.s: mostrarimagen.cc.s
-
-.PHONY : mostrarimagen.s
-
-# target to generate assembly for a file
-mostrarimagen.cc.s:
-	$(MAKE) -f CMakeFiles/ejecutable.dir/build.make CMakeFiles/ejecutable.dir/mostrarimagen.cc.s
-.PHONY : mostrarimagen.cc.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -159,9 +132,6 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ejecutable"
-	@echo "... mostrarimagen.o"
-	@echo "... mostrarimagen.i"
-	@echo "... mostrarimagen.s"
 .PHONY : help
 
 
