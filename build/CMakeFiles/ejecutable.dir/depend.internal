@@ -3,6 +3,7 @@
 
 CMakeFiles/ejecutable.dir/mostrarimagen.cc.o
  /home/judge_hpccourse/angelica/openCV/mostrarimagen.cc
+ /usr/local/cuda/include/cuda.h
  /usr/local/include/opencv/cv.h
  /usr/local/include/opencv2/calib3d/calib3d.hpp
  /usr/local/include/opencv2/core/core.hpp

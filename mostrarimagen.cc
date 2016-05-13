@@ -4,6 +4,8 @@
 #include <iostream>
 #include <cuda.h>
 #include <cv.h>
+#include <time.h>
+#include<math.h>
 
 using namespace cv;
 using namespace std;
@@ -12,19 +14,20 @@ using namespace std;
 #define GREEN 1
 #define BLUE 0
 
-__gloabl__ void grayImage(unsigned char *d_dataRawImage,int width, int height, unsigned char *d_imageOutput){
+__global__ void grayImage(unsigned char *Imageinput,int width, int height, unsigned char *ImageOutput){
 	int col=blockIdx.x*blockDim.x + threadIdx.x;
 	int row=blockIdx.y*blockDim.y + threadIdx.y;
 	
 	if((row < height) && (col < width)){
-        d_imageOutput[row*width+col] = imageInput[(row*width+col)*3+RED]*0.299 + imageInput[(row*width+col)*3+GREEN]*0.587 \
-                                     + imageInput[(row*width+col)*3+BLUE]*0.114;
+        ImageOutput[row*width+col] = Imageinput[(row*width+col)*3+RED]*0.299 + Imageinput[(row*width+col)*3+GREEN]*0.587 \
+                                     + Imageinput[(row*width+col)*3+BLUE]*0.114;
     }
 }
 
 int main( int argc, char** argv )
 {
     unsigned char *gray, *image_aux;
+    //cudaError_t error = cudaSuccess;
     unsigned char *d_dataRawImage, *d_imageOutput, *h_imageOutput;
     //uchar4* rgba;
     int width, height, gray_width, gray_height;
@@ -61,41 +64,27 @@ int main( int argc, char** argv )
     Size s = image.size();
     width = s.width;
     height = s.height;
-    int tama = sizeof(unsigned char)*width*height;
-    gray = (unsigned char*)malloc(tama);
+    int size = sizeof(unsigned char)*width*height*image.channels();
+    int tama = sizeof(unsigned char)*width*height;    
+    gray = (unsigned char*)malloc(size);    
+    
+    cudaMalloc((void**)&d_dataRawImage,size);
+    cudaMalloc((void**)&d_imageOutput,tama);
+    cudaMemcpy(d_dataRawImage,image.data,size, cudaMemcpyHostToDevice);
 
-
+    int blockSize = 32;
+    dim3 dimBlock(blockSize,blockSize,1);
+    dim3 dimGrid(ceil(width/float(blockSize)),ceil(height/float(blockSize)),1);
+    grayImage<<<dimGrid,dimBlock>>>(d_dataRawImage,width,height,d_imageOutput);
+    //cudaDeviceSynchronize();
+    cudaMemcpy(h_imageOutput,d_imageOutput,tama,cudaMemcpyDeviceToHost);
+    
     for(int i=0; i<height; i++){
 	for(int j=0; j<width; j++){
 		gray[(i*width+j)]= 0.299*image.data[(i*width+j)*3+2] + 0.587*image.data[(i*width+j)*3+1] + 0.114*image.data[(i*width+j)*3];
 	}    
     }
-    
-    error = cudaMalloc((void**)&d_dataRawImage,size);
-    if(error != cudaSuccess){
-        printf("Error reservando memoria para d_dataRawImage\n");
-        exit(-1);
-    }
-    
-    error = cudaMalloc((void**)&d_imageOutput,sizeGray);
-    if(error != cudaSuccess){
-        printf("Error reservando memoria para d_imageOutput\n");
-        exit(-1);
-    }
-    
-    error = cudaMemcpy(d_dataRawImage,gray,size, cudaMemcpyHostToDevice);
-    if(error != cudaSuccess){
-        printf("Error copiando los datos de dataRawImage a d_dataRawImage \n");
-        exit(-1);
-    }
-    
-    int blockSize = 32;
-    dim3 dimBlock(blockSize,blockSize,1);
-    dim3 dimGrid(ceil(width/float(blockSize)),ceil(height/float(blockSize)),1);
-    grayImage<<<dimGrid,dimBlock>>>(d_dataRawImage,width,height,d_imageOutput);
-    cudaDeviceSynchronize();
-    cudaMemcpy(h_imageOutput,d_imageOutput,sizeGray,cudaMemcpyDeviceToHost);
-    
+
     image_gray.create(height,width,CV_8UC1);
     image_gray.data=gray;
     
@@ -129,7 +118,7 @@ int main( int argc, char** argv )
     imshow("Gray Image CUDA", image_gray);
     imshow("Gray Image OpenCV",image_gray_opencv);
     
-    imshow("Gray Image CUDA parallel",h_imageOutput)
+    imshow("Gray Image CUDA parallel",h_imageOutput);
 
     waitKey(0);                                          // Wait for a keystroke in the window
     //free(gray_width);

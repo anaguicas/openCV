@@ -19,6 +19,14 @@ cuda.h
 -
 cv.h
 -
+time.h
+-
+math.h
+-
+
+/usr/local/cuda/include/cuda.h
+stdlib.h
+-
 
 /usr/local/include/opencv/cv.h
 opencv2/core/core_c.h

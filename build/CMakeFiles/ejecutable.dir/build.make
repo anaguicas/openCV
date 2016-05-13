@@ -90,6 +90,9 @@ ejecutable_EXTERNAL_OBJECTS =
 
 ejecutable: CMakeFiles/ejecutable.dir/mostrarimagen.cc.o
 ejecutable: CMakeFiles/ejecutable.dir/build.make
+ejecutable: /usr/local/cuda/lib64/libcudart_static.a
+ejecutable: /usr/lib/x86_64-linux-gnu/librt.so
+ejecutable: /usr/lib/x86_64-linux-gnu/libdl.so
 ejecutable: /usr/local/lib/libopencv_videostab.so.2.4.9
 ejecutable: /usr/local/lib/libopencv_ts.a
 ejecutable: /usr/local/lib/libopencv_superres.so.2.4.9
