@@ -11,7 +11,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.3.2/CMakeCCompiler.cmake"
   "CMakeFiles/3.3.2/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.3.2/CMakeSystem.cmake"
-  "CMakeFiles/ejecutable.dir/ejecutable_generated_mostrarimagen.cu.o.depend"
+  "CMakeFiles/ejecutable.dir/ejecutable_generated_imagenGrises.cu.o.depend"
   "/usr/local/share/OpenCV/OpenCVConfig-version.cmake"
   "/usr/local/share/OpenCV/OpenCVConfig.cmake"
   "/usr/local/share/OpenCV/OpenCVModules-release.cmake"
@@ -49,7 +49,7 @@ set(CMAKE_MAKEFILE_OUTPUTS
 
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
-  "CMakeFiles/ejecutable.dir/ejecutable_generated_mostrarimagen.cu.o.cmake"
+  "CMakeFiles/ejecutable.dir/ejecutable_generated_imagenGrises.cu.o.cmake"
   "CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 

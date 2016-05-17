@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/ejecutable.dir/ejecutable_generated_mostrarimagen.cu.o"
+  "CMakeFiles/ejecutable.dir/ejecutable_generated_imagenGrises.cu.o"
   "ejecutable.pdb"
   "ejecutable"
 )
