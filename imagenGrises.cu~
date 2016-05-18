@@ -29,7 +29,6 @@ unsigned char *imagenGrises(unsigned char *gray, int height, int width, Mat imag
 		gray[(i*width+j)]= 0.299*image.data[(i*width+j)*3+2] + 0.587*image.data[(i*width+j)*3+1] + 0.114*image.data[(i*width+j)*3];
 	}    
     }
-
 	imagen_salida=gray;
 	return imagen_salida;
 }
@@ -158,7 +157,7 @@ int main( int argc, char** argv )
     //imshow("Gray Image OpenCV",image_gray_opencv);
     //imshow("Gray Image Sobel GPU",image_sobel);  
     //imshow("Gray Image CUDA parallel",h_imageOutput);
-                                          // Wait for a keystroke in the window
+
     //free(gray_width);
     //free(gray_height);
     free(gray);

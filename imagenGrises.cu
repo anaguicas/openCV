@@ -29,7 +29,6 @@ unsigned char *imagenGrises(unsigned char *gray, int height, int width, Mat imag
 		gray[(i*width+j)]= 0.299*image.data[(i*width+j)*3+2] + 0.587*image.data[(i*width+j)*3+1] + 0.114*image.data[(i*width+j)*3];
 	}    
     }
-
 	imagen_salida=gray;
 	return imagen_salida;
 }
@@ -78,7 +77,8 @@ int main( int argc, char** argv )
     int size = sizeof(unsigned char)*width*height*image.channels();
     int tama = sizeof(unsigned char)*width*height;
     
-    gray = (unsigned char*)malloc(size);   
+    gray = (unsigned char*)malloc(size);  
+ 
     //----llamado a la función secuencial para mostrar la imagen en grises
     start=clock();
     image_aux= imagenGrises(gray,height,width,image);
