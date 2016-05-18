@@ -34,64 +34,6 @@ unsigned char *imagenGrises(unsigned char *gray, int height, int width, Mat imag
 	return imagen_salida;
 }
 
-__device__ unsigned char clamp(int value){
-    if(value < 0)
-        value = 0;
-    else
-        if(value > 255)
-            value = 255;
-    return (unsigned char)value;
-}
-
-__global__ void Union(unsigned char *Sobel_X, unsigned char *Sobel_Y, int width, int height, unsigned char *imageOutput){
-    int row = blockIdx.y*blockDim.y+threadIdx.y;
-    int col = blockIdx.x*blockDim.x+threadIdx.x;
-    if((row < height) && (col < width)){
-      imageOutput[row*width+col]= clamp(sqrtf( Sobel_X[row*width+col]*Sobel_X[row*width+col]+Sobel_Y[row*width+col]*Sobel_Y[row*width+col]) );
-    }
-}
-
-//------------Función sobel GPU----------------
-__global__ void Sobel(unsigned char *imageInput,int *mask, int width, int height, unsigned char *imageOutput){
-    int row = blockIdx.y*blockDim.y+threadIdx.y;
-    int col = blockIdx.x*blockDim.x+threadIdx.x;
-
-    int aux=row*width+col;
-    int sum=0;
-    if((row < height) && (col < width)){
-        if(( aux-width-2) > 0 ){
-            sum += mask[0]*imageInput[aux-width-2];
-        }
-        if((aux-1) > 0){
-            sum += mask[1]*imageInput[aux-width-1];
-        }
-        if(aux-width > 0){
-            sum += mask[2]*imageInput[aux-width];
-        }
-        //------------------------------------
-        if(aux-1 > 0){
-            sum += mask[3]*imageInput[aux-1];
-        }
-
-        sum += mask[4]*imageInput[aux];
-
-        if(aux+1 < width*height){
-            sum += mask[5]*imageInput[aux+1];
-        }
-        //---------------------------------
-        if(aux+width < width*height){
-            sum += mask[6]*imageInput[aux+width];
-        }
-        if(aux+width+1 < width*height){
-            sum += mask[7]*imageInput[aux+width+1];
-        }
-        if(aux+width+2 < width*height){
-            sum += mask[8]*imageInput[aux+width+2];
-        }
-   
-        imageOutput[row*width+col]= clamp(sum);
-    }
-}
 
 int main( int argc, char** argv )
 {
@@ -153,16 +95,16 @@ int main( int argc, char** argv )
     
     for(int i=0; i<height; i++){
 	for(int j=0; j<width; j++){
-	    h_imageInput[(i*width+j)]=image.data[(i*width+j)*3+2]+image.data[(i*width+j)*3+1]+image.data[(i*width+j)*3];
+	    h_imageInput[(i*width+j)]=image.data[(i*width+j)*3]+image.data[(i*width+j)*3]+image.data[(i*width+j)*3];
 	}    
     }
-//    h_imageInput=image.data;    
+    //h_imageInput = image.data;    
     start_gpu=clock();
     cudaMemcpy(d_imageInput,h_imageInput,size,cudaMemcpyHostToDevice);
 
     int blockSize=32;
     dim3 dimBlock(blockSize,blockSize,1);
-    dim3 dimGrid(ceil(width/float(blockSize)),ceil(height/float(blockSize)),1);
+    dim3 dimGrid(ceil(width/blockSize),ceil(height/blockSize),1);
     img2gray<<<dimGrid,dimBlock>>>(d_imageInput,width,height,d_imageOutput);
     cudaDeviceSynchronize();
     cudaMemcpy(h_imageOutput,d_imageOutput,tama,cudaMemcpyDeviceToHost);
@@ -179,55 +121,6 @@ int main( int argc, char** argv )
     
 
     //----------------Algoritmo sobel en GPU
-
-    /*error = cudaMalloc((void**)&d_SobelOutput_X,size);
-    if(error != cudaSuccess){
-        printf("Error reservando memoria para d_SobelOutput_X\n");
-        exit(-1);
-    }
-    error = cudaMalloc((void**)&d_SobelOutput_Y,size);
-    if(error != cudaSuccess){
-        printf("Error reservando memoria para d_SobelOutput_Y\n");
-        exit(-1);
-    }
-    error = cudaMalloc((void**)&d_SobelOutput,size);
-    if(error != cudaSuccess){
-        printf("Error reservando memoria para d_SobelOutput\n");
-        exit(-1);
-    }
-    error = cudaMalloc((void**)&h_SobelOutput,size);
-    if(error != cudaSuccess){
-        printf("Error reservando memoria para d_SobelOutput\n");
-        exit(-1);
-    }
-
-    int * Mask_x = (int*)malloc( 3*3*sizeof(int) ); //separo memoria en host para la mascara en X
-    Mask_x[0]=-1;Mask_x[1]=0;Mask_x[2]=1;
-    Mask_x[3]=-2;Mask_x[4]=0;Mask_x[5]=2;
-    Mask_x[6]=-1;Mask_x[7]=0;Mask_x[8]=1;
-
-    int * Mask_y = (int*)malloc( 3*3*sizeof(int) ); //separo memoria en host para la mascara en y
-    Mask_y[0]=-1;Mask_y[1]=-2;Mask_y[2]=-1;
-    Mask_y[3]=0;Mask_y[4]=0;Mask_y[5]=0;
-    Mask_y[6]=1;Mask_y[7]=2;Mask_y[8]=1;
-
-    int sizeM= 3*3*sizeof(int);
-    int *d_M;
-
-    cudaMalloc((void**)&d_M,sizeM);
-    cudaMemcpy(d_M,Mask_x,sizeM,cudaMemcpyHostToDevice);
-    Sobel<<<dimGrid,dimBlock>>>(gray,d_M,width,height,d_SobelOutput_X);
-    cudaMemcpy(d_M,Mask_y,sizeM,cudaMemcpyHostToDevice);
-    Sobel<<<dimGrid,dimBlock>>>(gray,d_M,width,height,d_SobelOutput_Y);
-    cudaDeviceSynchronize();
-    Union<<<dimGrid,dimBlock>>>(d_SobelOutput_X,d_SobelOutput_Y,width,height,d_SobelOutput);
-
-    h_SobelOutput=(unsigned char*)malloc(size);	
-    cudaMemcpy(h_SobelOutput,d_SobelOutput,size,cudaMemcpyDeviceToHost);
-
-    Mat image_sobel;
-    image_sobel.create(height,width,CV_8UC1);
-    image_sobel.data=h_SobelOutput;*/
 
     //---------------------------------------------------
 
@@ -256,15 +149,16 @@ int main( int argc, char** argv )
     imshow("Gray Image Secuencial", image_gray);
     imshow("Gray Image Sobel CPU", grad );
     imshow("Gray Image Parallel", gray_image);
+    waitKey(0);
 
-    printf("Tiempo algoritmo secuencial: ", ((double)(end-start))/CLOCKS_PER_SEC);
-    printf("Tiempo algoritmo paralelo: ", ((double)(end_gpu-start_gpu))/CLOCKS_PER_SEC);
+    image_gpu_time=((double)(end_gpu-start_gpu))/CLOCKS_PER_SEC;
+    image_cpu_time=((double)(end-start))/CLOCKS_PER_SEC;
+    printf("Tiempo algoritmo secuencial: %f", image_cpu_time);
+    printf("Tiempo algoritmo paralelo: %f", image_gpu_time);
     //imshow("Gray Image OpenCV",image_gray_opencv);
-    //imshow("Gray Image Sobel GPU",image_sobel);
-    
+    //imshow("Gray Image Sobel GPU",image_sobel);  
     //imshow("Gray Image CUDA parallel",h_imageOutput);
 
-    waitKey(0);                                          // Wait for a keystroke in the window
     //free(gray_width);
     //free(gray_height);
     free(gray);
