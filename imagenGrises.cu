@@ -113,7 +113,7 @@ int main( int argc, char** argv )
 
     Mat gray_image;
     gray_image.create(height,width,CV_8UC1);
-    gray_image.data = h_imageOutput;
+    gray_image.data = h_imageInput;
 
     GaussianBlur( image, image, Size(3,3), 0, 0, BORDER_DEFAULT );
 
