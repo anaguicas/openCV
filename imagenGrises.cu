@@ -61,6 +61,7 @@ int main( int argc, char** argv )
     Mat image;
     Mat image_gray_opencv;
     Mat image_gray;
+    Mat gray_image;
 
     image = imread(argv[1], CV_LOAD_IMAGE_COLOR);   // Read the file
 
@@ -93,12 +94,12 @@ int main( int argc, char** argv )
     cudaMalloc((void**)&d_imageOutput,tama);
     cudaMalloc((void**)&d_imageInput,size);
     
-    for(int i=0; i<height; i++){
+/*    for(int i=0; i<height; i++){
 	for(int j=0; j<width; j++){
 	    h_imageInput[(i*width+j)]=image.data[(i*width+j)*3]+image.data[(i*width+j)*3]+image.data[(i*width+j)*3];
 	}    
-    }
-    //h_imageInput = image.data;    
+    }*/
+    h_imageInput = image.data;    
     start_gpu=clock();
     cudaMemcpy(d_imageInput,h_imageInput,size,cudaMemcpyHostToDevice);
 
@@ -111,9 +112,8 @@ int main( int argc, char** argv )
     end_gpu=clock();
     //-------------------------
 
-    Mat gray_image;
     gray_image.create(height,width,CV_8UC1);
-    gray_image.data = h_imageInput;
+    gray_image.data = h_imageOutput;
 
     GaussianBlur( image, image, Size(3,3), 0, 0, BORDER_DEFAULT );
 
