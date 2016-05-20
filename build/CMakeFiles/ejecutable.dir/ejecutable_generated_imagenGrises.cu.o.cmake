@@ -55,19 +55,19 @@ if(NOT generated_file)
 endif()
 
 # Set these up as variables to make reading the generated file easier
-set(CMAKE_COMMAND "/usr/local/bin/cmake") # path
-set(source_file "/home/judge_hpccourse/angelica/openCV/imagenGrises.cu") # path
-set(NVCC_generated_dependency_file "/home/judge_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir//ejecutable_generated_imagenGrises.cu.o.NVCC-depend") # path
-set(cmake_dependency_file "/home/judge_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir//ejecutable_generated_imagenGrises.cu.o.depend") # path
-set(CUDA_make2cmake "/usr/local/share/cmake-3.3/Modules/FindCUDA/make2cmake.cmake") # path
-set(CUDA_parse_cubin "/usr/local/share/cmake-3.3/Modules/FindCUDA/parse_cubin.cmake") # path
+set(CMAKE_COMMAND "/usr/bin/cmake") # path
+set(source_file "/home/hera_hpccourse/angelica/openCV/imagenGrises.cu") # path
+set(NVCC_generated_dependency_file "/home/hera_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir//ejecutable_generated_imagenGrises.cu.o.NVCC-depend") # path
+set(cmake_dependency_file "/home/hera_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir//ejecutable_generated_imagenGrises.cu.o.depend") # path
+set(CUDA_make2cmake "/usr/share/cmake-2.8/Modules/FindCUDA/make2cmake.cmake") # path
+set(CUDA_parse_cubin "/usr/share/cmake-2.8/Modules/FindCUDA/parse_cubin.cmake") # path
 set(build_cubin OFF) # bool
-set(CUDA_HOST_COMPILER "/usr/bin/gcc-4.8") # path
+set(CUDA_HOST_COMPILER "/usr/bin/cc") # bool
 # We won't actually use these variables for now, but we need to set this, in
 # order to force this file to be run again if it changes.
-set(generated_file_path "/home/judge_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir//.") # path
-set(generated_file_internal "/home/judge_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir//./ejecutable_generated_imagenGrises.cu.o") # path
-set(generated_cubin_file_internal "/home/judge_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir//./ejecutable_generated_imagenGrises.cu.o.cubin.txt") # path
+set(generated_file_path "/home/hera_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir//.") # path
+set(generated_file_internal "/home/hera_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir//./ejecutable_generated_imagenGrises.cu.o") # path
+set(generated_cubin_file_internal "/home/hera_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir//./ejecutable_generated_imagenGrises.cu.o.cubin.txt") # path
 
 set(CUDA_NVCC_EXECUTABLE "/usr/local/cuda/bin/nvcc") # path
 set(CUDA_NVCC_FLAGS -O3;-arch=sm_52 ;; ) # list
@@ -79,7 +79,6 @@ set(CUDA_NVCC_FLAGS_RELWITHDEBINFO  ; )
 set(nvcc_flags -m64) # list
 set(CUDA_NVCC_INCLUDE_ARGS "-I/usr/local/cuda/include;-I/usr/local/include/opencv;-I/usr/local/include;-I/usr/local/cuda/include") # list (needs to be in quotes to handle spaces properly).
 set(format_flag "-c") # string
-set(cuda_language_flag ) # list
 
 if(build_cubin AND NOT generated_cubin_file)
   message(FATAL_ERROR "You must specify generated_cubin_file on the command line")
@@ -115,7 +114,7 @@ list(APPEND CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS_${build_configuration}})
 # Any -ccbin existing in CUDA_NVCC_FLAGS gets highest priority
 list( FIND CUDA_NVCC_FLAGS "-ccbin" ccbin_found0 )
 list( FIND CUDA_NVCC_FLAGS "--compiler-bindir" ccbin_found1 )
-if( ccbin_found0 LESS 0 AND ccbin_found1 LESS 0 AND CUDA_HOST_COMPILER )
+if( ccbin_found0 LESS 0 AND ccbin_found1 LESS 0 )
   if (CUDA_HOST_COMPILER STREQUAL "$(VCInstallDir)bin" AND DEFINED CCBIN)
     set(CCBIN -ccbin "${CCBIN}")
   else()
@@ -135,7 +134,7 @@ endif()
 # and other return variables are present after executing the process.
 macro(cuda_execute_process status command)
   set(_command ${command})
-  if(NOT "x${_command}" STREQUAL "xCOMMAND")
+  if(NOT _command STREQUAL "COMMAND")
     message(FATAL_ERROR "Malformed call to cuda_execute_process.  Missing COMMAND as second argument. (command = ${command})")
   endif()
   if(verbose)
@@ -247,7 +246,6 @@ cuda_execute_process(
   "Generating ${generated_file}"
   COMMAND "${CUDA_NVCC_EXECUTABLE}"
   "${source_file}"
-  ${cuda_language_flag}
   ${format_flag} -o "${generated_file}"
   ${CCBIN}
   ${nvcc_flags}

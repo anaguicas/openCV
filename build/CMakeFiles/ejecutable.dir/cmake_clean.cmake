@@ -1,10 +1,10 @@
-file(REMOVE_RECURSE
-  "CMakeFiles/ejecutable.dir/ejecutable_generated_imagenGrises.cu.o"
+FILE(REMOVE_RECURSE
+  "CMakeFiles/ejecutable.dir/./ejecutable_generated_imagenGrises.cu.o"
   "ejecutable.pdb"
   "ejecutable"
 )
 
 # Per-language clean rules from dependency scanning.
-foreach(lang )
-  include(CMakeFiles/ejecutable.dir/cmake_clean_${lang}.cmake OPTIONAL)
-endforeach()
+FOREACH(lang)
+  INCLUDE(CMakeFiles/ejecutable.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

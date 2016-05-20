@@ -1,1 +1,1 @@
-/home/judge_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir
+/home/hera_hpccourse/angelica/openCV/build/CMakeFiles/ejecutable.dir
