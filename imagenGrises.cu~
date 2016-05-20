@@ -21,8 +21,7 @@ __global__ void img2gray(unsigned char *imageInput, int width, int height, unsig
 }
 
 //---Función secuencial para mostrar la imagen en escala de grises
-unsigned char *imagenGrises(unsigned char *gray, int height, int width, Mat image){
-	
+unsigned char *imagenGrises(unsigned char *gray, int height, int width, Mat image){	
 	unsigned char *imagen_salida;
 	for(int i=0; i<height; i++){
 		for(int j=0; j<width; j++){
@@ -33,6 +32,10 @@ unsigned char *imagenGrises(unsigned char *gray, int height, int width, Mat imag
 	return imagen_salida;
 }
 
+void sobel(Mat image, unsigned char *,unsigned char*,int mask, int width, int height){
+		char mask_x[]={-1,0,1,-2,0,2,-1,0,1};
+		char mask_y[]={1,2,1,0,0,0,-1,-2,-1};
+}
 
 int main( int argc, char** argv )
 {
@@ -92,7 +95,7 @@ int main( int argc, char** argv )
     h_imageInput = (unsigned char*)malloc(size);
     h_imageOutput = (unsigned char*)malloc(tama);
     cudaMalloc((void**)&d_imageOutput,tama);
-    cudaMalloc((void**)&d_imageInput,tama);
+    cudaMalloc((void**)&d_imageInput,size);
     
 /*    for(int i=0; i<height; i++){
 	for(int j=0; j<width; j++){
