@@ -57,6 +57,14 @@ tamaño |	tiempo ejecución promedio
 
 ### Función Sobel Share Memory
 
+tamaño|	sobel share
+------|-------------
+259x194|	0.000259
+350x271|	0.0004294
+600x400|	0.0009862
+640x463|	0.0012104
+1000x814|	0.0029114
+
 ### Función Secuencial Vs Función Paralela
 
 tamaño|	Secuencial|	Paralelo|	aceleración
