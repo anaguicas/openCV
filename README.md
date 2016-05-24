@@ -31,6 +31,7 @@ tamaño|	tiempo ejecución promedio
 ### Función Sobel Cache Memory
 
 tamaño|	tiempo ejecución promedio
+------|----------------------------
 259x194|	0.0002624
 350x271|	0.0004344
 600x400|	0.0009892
@@ -40,6 +41,7 @@ tamaño|	tiempo ejecución promedio
 ### Función Sobel Global Memory
 
 tamaño |	tiempo ejecución promedio
+-------|---------------------------------
 259x194|	0.0002722
 350x271|	0.000453
 600x400|	0.0010516
