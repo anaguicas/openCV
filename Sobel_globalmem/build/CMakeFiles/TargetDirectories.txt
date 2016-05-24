@@ -1,0 +1,1 @@
+/home/hera_hpccourse/angelica/openCV/Sobel_globalmem/build/CMakeFiles/ejecutable.dir
