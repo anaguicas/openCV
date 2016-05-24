@@ -7,5 +7,13 @@ Se realizó el procesamiento de una imagen con la libreria opencv. Se inició ca
 ### Función secuencial
 En la función secuencial se creó una variable (gray) de tipo unsigned char para almacenar la imagen convertida en escala de grises, la imagen se fue recorriendo en cada uno de los componenetes (rojos, verde y azul) y se multiplicó con una constante diferente en cada componente para poder hacer la conversión a escala de grises, este resultado se iba almacenando en la varialble gray, una vez terminado el recorrido se mostró la nueva imagen es escala de grises.
 
+tamaño |	tiempo ejecución promedio
+-------|--------------------------
+259x194|	0.0004494
+350x271|	0.0008654
+600x400|	0.0019776
+640x463|	0.002845
+1000x814|	0.0074478
+
 ### Función Paralela
 En la función paralela se realizón un proceso similar al de la función secuencial en cuanto al recorrido de la imagen inicial y multiplicación de constantes.
