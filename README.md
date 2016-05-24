@@ -60,7 +60,7 @@ tamaño|	Secuencial|	Paralelo|	aceleración
 640x463|	0.002845|	0.001143|	2.489063867
 1000x814|	0.0074478|	0.002789|	2.670419505
 
-### Función Secuencial Vs Sobel Cache Memory
+### Función Secuencial Vs Función Sobel Cache Memory
 
 tamaño|	Secuencial|	sobel cache|	aceleración
 ------|-----------|------------|----------------
@@ -70,7 +70,7 @@ tamaño|	Secuencial|	sobel cache|	aceleración
 640x463|	0.002845|	0.0011962|	2.378364822
 1000x814|	0.0074478|	0.0028976|	2.57033407
 
-### Función Secuencial Vs Sobel Global
+### Función Secuencial Vs Función Sobel Global
 
 tamaño|	Secuencial|	Sobel global|	aceleración
 ------|-----------|-------------|--------------
@@ -80,4 +80,22 @@ tamaño|	Secuencial|	Sobel global|	aceleración
 640x463|	0.002845|	0.0012874	|2.209880379
 1000x814|	0.0074478|	0.0031062|	2.397720688
 
-### Función Secuencial Vs Sobel Share
+### Función Secuencial Vs Función Sobel Share
+
+tamaño|	Secuencial|	sobel share|	aceleración
+------|-----------|------------|---------------
+259x194|	0.0004494|	0.000259|	1.735135135
+350x271|	0.0008654|	0.0004294|	2.015370284
+600x400|	0.0019776|	0.0009862|	2.005272764
+640x463|	0.002845|	0.0012104|	2.350462657
+1000x814|	0.0074478|	0.0029114|	2.558150718
+
+### Función Secuencial Vs Función Sobel OpenCV
+
+tamaño|	Secuencial|	OpenCV|	aceleración
+------|-----------|-------|--------------------
+259x194|	0.0004494|	0.0024056|	0.1868141004
+350x271|	0.0008654|	0.0037532|	0.2305765747
+600x400|	0.0019776|	0.0076142|	0.2597252502
+640x463|	0.002845|	0.0082628|	0.344314276
+1000x814|	0.0074478|	0.0167672|	0.444188654
