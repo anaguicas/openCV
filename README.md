@@ -29,6 +29,7 @@ tamaño|	tiempo ejecución promedio
 ### Función Sobel OpenCV
 
 tamaño|	OpenCV
+------|------------
 259x194|	0.0024056
 350x271|	0.0037532
 600x400|	0.0076142
