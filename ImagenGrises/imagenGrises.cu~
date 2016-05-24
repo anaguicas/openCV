@@ -34,7 +34,6 @@ unsigned char *imagenGrises(unsigned char *gray, int height, int width, Mat imag
     return imagen_salida;
 }
 
-
 int main(int argc, char **argv)
 {
     cudaError_t error = cudaSuccess;

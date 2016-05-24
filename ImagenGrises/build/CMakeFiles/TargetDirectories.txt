@@ -1,0 +1,1 @@
+/home/hera_hpccourse/angelica/openCV/ImagenGrises/build/CMakeFiles/ejecutable.dir

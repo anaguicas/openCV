@@ -34,7 +34,6 @@ unsigned char *imagenGrises(unsigned char *gray, int height, int width, Mat imag
     return imagen_salida;
 }
 
-
 int main(int argc, char **argv)
 {
     cudaError_t error = cudaSuccess;
@@ -136,7 +135,7 @@ int main(int argc, char **argv)
     gpu_time_used = ((double) (endGPU - startGPU)) / CLOCKS_PER_SEC;
     printf("Tiempo Algoritmo Paralelo: %.10f\n",gpu_time_used);
     cpu_time_used = ((double) (end - start)) /CLOCKS_PER_SEC;
-    printf("Tiempo Algoritmo OpenCV: %.10f\n",cpu_time_used);
+    printf("Tiempo Algoritmo secuencial: %.10f\n",cpu_time_used);
     printf("La aceleración obtenida es de %.10fX\n",cpu_time_used/gpu_time_used);
 
     cudaFree(d_imageInput);
