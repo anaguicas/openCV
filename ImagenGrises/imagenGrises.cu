@@ -63,10 +63,14 @@ int main(int argc, char **argv)
 
     gray = (unsigned char*)malloc(size);
     start = clock();
-    image_aux=imagenGrises(gray,height,width,image);
+    for(int i=0; i<height; i++){
+        for(int j=0; j<width; j++){
+        gray[(i*width+j)]= 0.299*image.data[(i*width+j)*3+2] + 0.587*image.data[(i*width+j)*3+1] + 0.114*image.data[(i*width+j)*3];
+    }    
+    }
     end=clock();
     image_gray.create(height,width,CV_8UC1);
-    image_gray.data=image_aux;
+    image_gray.data=gray;
 
     //--------------------------------------------------
 
@@ -121,13 +125,13 @@ int main(int argc, char **argv)
 
     //imwrite("./Gray_Image.jpg",gray_image);
 
-    namedWindow("Image", WINDOW_NORMAL);
-    namedWindow("Gray Image CUDA secuencial", WINDOW_NORMAL);
-    namedWindow("Gray Image CUDA paralelo", WINDOW_NORMAL);
+    //namedWindow("Image", WINDOW_NORMAL);
+    //namedWindow("Gray Image CUDA secuencial", WINDOW_NORMAL);
+    //namedWindow("Gray Image CUDA paralelo", WINDOW_NORMAL);
 
-    imshow("Image",image);
-    imshow("Gray Image CUDA secuencial", image_gray);
-    imshow("Gray Image CUDA paralelo", gray_image);
+    //imshow("Image",image);
+    //imshow("Gray Image CUDA secuencial", image_gray);
+    //imshow("Gray Image CUDA paralelo", gray_image);
 
     waitKey(0);
 

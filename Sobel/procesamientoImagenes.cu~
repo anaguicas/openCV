@@ -142,7 +142,7 @@ int main(int argc, char **argv){
     dim3 dimGrid(ceil(width/float(blockSize)),ceil(height/float(blockSize)),1);
     img2gray<<<dimGrid,dimBlock>>>(d_ImageInput,width,height,d_imageOutput);
     cudaDeviceSynchronize();
-    sobelFilter<<<dimGrid,dimBlock>>>(d_imageOutput,width,height,3,d_sobelOutput);
+    sobelFilter_cache<<<dimGrid,dimBlock>>>(d_imageOutput,width,height,3,d_sobelOutput);
     cudaMemcpy(h_imageOutput,d_sobelOutput,sizeGray,cudaMemcpyDeviceToHost);
     endGPU = clock();
 

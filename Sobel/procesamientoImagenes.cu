@@ -160,15 +160,15 @@ int main(int argc, char **argv){
 
     imwrite("./Sobel_Image.jpg",gray_image);
 
-    namedWindow(imageName, WINDOW_NORMAL);
-    namedWindow("Gray Image CUDA secuencial", WINDOW_NORMAL);
-    namedWindow("Gray Image SOBEL cache", WINDOW_NORMAL);
-    namedWindow("Sobel Image OpenCV", WINDOW_NORMAL);
+    //namedWindow(imageName, WINDOW_NORMAL);
+    //namedWindow("Gray Image CUDA secuencial", WINDOW_NORMAL);
+    //namedWindow("Gray Image SOBEL cache", WINDOW_NORMAL);
+    //namedWindow("Sobel Image OpenCV", WINDOW_NORMAL);
 
-    imshow(imageName,image);
-    imshow("Gray Image CUDA secuencial", image_gray);
-    imshow("Gray Image SOBEL cache", gray_image);
-    imshow("Sobel Image OpenCV",abs_grad_x);
+    //imshow(imageName,image);
+    //imshow("Gray Image CUDA secuencial", image_gray);
+    //imshow("Gray Image SOBEL cache", gray_image);
+    //imshow("Sobel Image OpenCV",abs_grad_x);
     waitKey(0);
 
     //free(h_ImageInput);    
