@@ -166,3 +166,8 @@ En la gráfica la línea azul representa la acelaración del algoritmo Sobel Ope
 En la gráfica la línea azul representa la acelaración del algoritmo Sobel OpenCV y la línea roja representa la aceleración del algoritmo Sobel share.
 
 ![alt tag](comparación opencv vs sobel share.png)
+
+## Conclusiones
+* Se observó que el algoritmo secuencial es menos óptimo que los algoritmos paralelos.
+* El algoritmo Sobel de OpenCV es menos ótimo que los algoritmos Sobel implementados, ya que conlleva mas tiempo de ejecución para procesar la imagen.
+* La aceleración que se obtuvó en la compraración del algoritmo secuencial con los otros algoritmos es incremental.
