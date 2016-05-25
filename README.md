@@ -127,13 +127,25 @@ tamaño|	Secuencial|	OpenCV|	aceleración
 ![alt tag](secuencial Vs sobel opencv.png)
 
 ### Gráfica comparativa Secuencial Vs Paralelo
+
+En la gráfica la línea azul representa la aceleración del algoritmo secuencial y la línea roja representa la aceleración del algoritmo paralelo.
+
 ![alt tag](comparación secuencial vs paralelo.png)
 
 ### Gráfica comparativa Sobel OpenCV Vs Sobel cache
+
+En la gráfica la línea azul representa la acelaración del algoritmo Sobel OpenCV y la línea roja representa la aceleración del algoritmo Sobel cache.
+
 ![alt tag](comparación opencv vs sobel cache.png)
 
 ### Gráfica comparativa Sobel OpenCV Vs Sobel global
+
+En la gráfica la línea azul representa la acelaración del algoritmo Sobel OpenCV y la línea roja representa la aceleración del algoritmo Sobel global.
+
 ![alt tag](comparación opencv vs sobel global.png)
 
 ### Gráfica comparativa sobel OpenCV Vs Sobel share
+
+En la gráfica la línea azul representa la acelaración del algoritmo Sobel OpenCV y la línea roja representa la aceleración del algoritmo Sobel share.
+
 ![alt tag](comparación opencv vs sobel share.png)
