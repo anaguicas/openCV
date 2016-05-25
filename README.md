@@ -125,3 +125,15 @@ tamaño|	Secuencial|	OpenCV|	aceleración
 1000x814|	0.0074478|	0.0167672|	0.444188654
 
 ![alt tag](secuencial Vs sobel opencv.png)
+
+### Gráfica comparativa Secuencial Vs Paralelo
+![alt tag](comparación secuencial vs paralelo.png)
+
+### Gráfica comparativa Sobel OpenCV Vs Sobel cache
+![alt tag](comparación opencv vs sobel cache.png)
+
+### Gráfica comparativa Sobel OpenCV Vs Sobel global
+![alt tag](comparación opencv vs sobel global.png)
+
+### Gráfica comparativa sobel OpenCV Vs Sobel share
+![alt tag](comparación opencv vs sobel share.png)
