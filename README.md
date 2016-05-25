@@ -1,6 +1,6 @@
 # Proyecto OpenCV
 
-## Procesamiento de imagenes
+## Conversión de imagenes a escala de grises
 
 Se realizó el procesamiento de una imagen con la libreria opencv. Se inició cargando y mostrando una imagen, luego se realizó el código en el que la imagen se pasa a escala de grises, esta función se trabajo de manera secuencial, una vez terminado esto se realizó el código de manera paralela, luego se uso la función sobel de opencv para procesar la imagen, la función sobel también se implemento con memoria cache, memoria global y memoria compartida.
 
@@ -10,8 +10,20 @@ En la función paralela se realizón un proceso similar al de la función secuen
 
 Se realizó una toma de datos con 5 imagenes de tamaños diferentes, por cada tamaño se ejecutó 5 veces, estos datos se ingresarón en unas tablas. Luego de tomar los tiempos de ejecución por cada tamaño se sacó el promedio de los tiempos de ejecución y por último se calculo la acelaración de los algoritmos paralelo, sobel cache, sobel share, sobel global contra el algoritmo secuencial.
 
+**Tabla con los tamaños de la imagenes que se usaron para ejecutar los algoritmo**
+
+tamaño |
+-------|
+259x194|
+350x271|
+600x400|
+640x463|
+1000x814|
+
+**A continuación se muestra el promedio de los tiempos de ejecución por cada tamaño.**
+
 ### Función secuencial
-Tabla tiempos de ejecución: Contiene el promedio de los tiempos de ejecución por cada tamaño.
+
 
 tamaño |	tiempo ejecución promedio
 -------|--------------------------
@@ -22,7 +34,6 @@ tamaño |	tiempo ejecución promedio
 1000x814|	0.0074478
 
 ### Función Paralela
-Tabla tiempos de ejecución: Contiene el promedio de los tiempos de ejecución por cada tamaño.
 
 tamaño|	tiempo ejecución promedio
 ------|--------------------------
@@ -33,7 +44,6 @@ tamaño|	tiempo ejecución promedio
 1000x814|	0.002789
 
 ### Función Sobel OpenCV
-Tabla tiempos de ejecución: Contiene el promedio de los tiempos de ejecución por cada tamaño.
 
 tamaño|	OpenCV
 ------|------------
@@ -44,7 +54,6 @@ tamaño|	OpenCV
 1000x814|	0.0167672
 
 ### Función Sobel Cache Memory
-Tabla tiempos de ejecución: Contiene el promedio de los tiempos de ejecución por cada tamaño.
 
 tamaño|	tiempo ejecución promedio
 ------|----------------------------
@@ -55,7 +64,6 @@ tamaño|	tiempo ejecución promedio
 1000x814|	0.0028976
 
 ### Función Sobel Global Memory
-Tabla tiempos de ejecución: Contiene el promedio de los tiempos de ejecución por cada tamaño.
 
 tamaño |	tiempo ejecución promedio
 -------|---------------------------------
@@ -66,7 +74,6 @@ tamaño |	tiempo ejecución promedio
 1000x814|	0.0031062
 
 ### Función Sobel Share Memory
-Tabla tiempos de ejecución: Contiene el promedio de los tiempos de ejecución por cada tamaño.
 
 tamaño|	sobel share
 ------|-------------
